@@ -1,0 +1,16 @@
+db:
+  host: 'localhost'
+  user: 'root'
+  pass: '123'
+  post: 3363
+  db: 'mc'
+
+msg:
+  login:
+    chat: 'Pre prihlasenie napis /login <heslo>'
+    title: ''
+    subtitle: '/login <heslo>'
+  register:
+    chat: 'Pre registraciu napis /register <heslo> <heslo>'
+    title: ''
+    subtitle: '/register <heslo> <heslo>'
