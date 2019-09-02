@@ -2,3 +2,16 @@ name: GemAuth
 author: Perri
 version: 1.0
 main: sk.perri.gemissius.gemauth.Main
+commands:
+  login:
+    aliases: [l, log, prihlas, prihlasit, logon]
+    description: login command
+    usage: /login <password>
+  register:
+    aliases: [reg, regis, registruj]
+    description: register command
+    usage: /register <password> <password>
+  gemauth:
+    aliases: [ga]
+    description: admin command
+    usage: /gemauth help

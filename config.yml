@@ -14,3 +14,14 @@ msg:
     chat: 'Pre registraciu napis /register <heslo> <heslo>'
     title: ''
     subtitle: '/register <heslo> <heslo>'
+  timeout: 'Vyprsal casovy limit'
+
+timeout: 40 # sec
+
+spawnpoint:
+  world: world
+  x: 0
+  y: 0
+  z: 0
+  yaw: 0
+  pitch: 0
