@@ -1,5 +1,7 @@
 package sk.perri.gemissius.gemauth;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -78,10 +80,27 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
         LoginFilter lf =  new LoginFilter();
         lf.registerFilter();
 
+        // plugin messaging channel
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "auth:channel");
+
         getLogger().info("[I] GemAuth loaded!");
     }
 
-
+    private void sendLoginInfo(String player)
+    {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        try
+        {
+            out.writeUTF("logged");
+            out.writeUTF(player);
+            Bukkit.getServer().sendPluginMessage(this, "auth:channel", out.toByteArray());
+            //getLogger().info("Sent");
+        }
+        catch (Exception e)
+        {
+            getLogger().warning("[E] Neviem poslat info bungee: "+e.toString());
+        }
+    }
 
     private void DBConnect()
     {
@@ -277,6 +296,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
             if(tasks.containsKey(player.getName()))
                 tasks.get(player.getName()).cancel();
 
+            sendLoginInfo(player.getName());
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', getConfig().getString("msg.log-c")));
             getLogger().info(player.getName()+" - login OK");
         }
