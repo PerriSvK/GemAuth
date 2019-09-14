@@ -1,5 +1,6 @@
 package sk.perri.gemissius.gemauth;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public class User
@@ -7,6 +8,7 @@ public class User
     private Player player;
     private String pass, salt, pepper;
     private int action = -1;
+    private int tries = 0;
 
     public User(Player player)
     {
@@ -46,5 +48,22 @@ public class User
     public String getPepper()
     {
         return pepper;
+    }
+
+    public void logIn()
+    {
+        action = 50;
+        player.getActivePotionEffects().forEach(pe -> player.removePotionEffect(pe.getType()));
+        player.setGameMode(GameMode.SURVIVAL);
+    }
+
+    public void addTry()
+    {
+        tries++;
+    }
+
+    public int getTries()
+    {
+        return tries;
     }
 }

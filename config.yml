@@ -2,7 +2,7 @@ db:
   host: 'localhost'
   user: 'root'
   pass: '123'
-  post: 3363
+  port: 3306
   db: 'mc'
 
 msg:
@@ -15,6 +15,14 @@ msg:
     title: ''
     subtitle: '/register <heslo> <heslo>'
   timeout: 'Vyprsal casovy limit'
+  log-a: 'Najprv sa musis zaregistrovat!'
+  reg-a: 'Uz si zaregistrovany!'
+  log-b: 'Zle heslo!'
+  reg-b: 'Hesla sa nezhoduju!'
+  log-c: 'Uspesne prihlaseny!'
+  reg-c: 'Uspesne zaregistrovany!'
+  log-d: 'Uz si prihlaseny!'
+  reg-d: 'Heslo musi mat aspon 6 znakov!'
 
 timeout: 40 # sec
 
