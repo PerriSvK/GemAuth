@@ -1,9 +1,6 @@
 package sk.perri.gemissius.gemauth;
 
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
+import org.sqlite.util.StringUtils;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
@@ -26,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -41,7 +40,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
     public void onEnable()
     {
         // config
-        if(!getDataFolder().exists())
+        if (!getDataFolder().exists())
             getDataFolder().mkdirs();
 
         getConfig().options().copyDefaults(true);
@@ -73,9 +72,16 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
 
         getServer().getPluginManager().registerEvents(this, this);
         getDescription().getCommands().keySet().forEach(c -> getCommand(c).setExecutor(this));
-        
+
+        // Logger
+
+        LoginFilter lf =  new LoginFilter();
+        lf.registerFilter();
+
         getLogger().info("[I] GemAuth loaded!");
     }
+
+
 
     private void DBConnect()
     {
@@ -340,7 +346,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
                 event.setMessage(args[0]);
             }
 
-            //event.setCancelled(true);
+            event.setCancelled(true);
         }
         else if(args[0].toLowerCase().startsWith("/reg"))
         {
@@ -360,7 +366,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
                 event.setMessage(args[0]);
             }
 
-            //event.setCancelled(true);
+            event.setCancelled(true);
         }
         else
         {
@@ -371,6 +377,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        getLogger().info("CMD: "+label+" -> "+ StringUtils.join(Arrays.asList(args), ", "));
         return true;
     }
 
